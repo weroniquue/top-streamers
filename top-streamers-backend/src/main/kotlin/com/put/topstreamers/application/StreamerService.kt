@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service
 class StreamerService(
     private val streamersDatabase: StreamersDatabase) {
 
-    fun getAllStreamers(channel: String?) = channel?.let {
-        streamersDatabase.getStreamersByChannelName(it)
+    fun getAllStreamers(channel: String?): List<Streamer> = channel?.let {
+        streamersDatabase.getStreamersByChannelName(channel)
     } ?: streamersDatabase.getAllStreamers()
+
 }
