@@ -34,13 +34,21 @@ data class StreamerEntity(
     val followersGained: String,
     val viewsGained: String,
     val partnered: Boolean,
-    val mature: String,
+    val mature: Boolean,
     val language: String
 ) {
     fun toDomain() = Streamer(
-        id,
-        channel,
-        watchTime.toIntOrNull(),
-        streamTime.toIntOrNull()
+        id = id,
+        channel = channel,
+        watchTime = watchTime.toIntOrNull(),
+        streamTime = streamTime.toIntOrNull(),
+        peakViewers = peakViewers.toIntOrNull(),
+        avgViewers = avgViewers.toIntOrNull(),
+        followers = followers.toIntOrNull(),
+        followersGained = followersGained.toIntOrNull(),
+        viewsGained = viewsGained.toIntOrNull(),
+        partnered = partnered,
+        mature = mature,
+        language = language
     )
 }
