@@ -3,7 +3,6 @@ package com.put.topstreamers.api
 import com.put.topstreamers.application.DataNotFound
 import com.put.topstreamers.application.Streamer
 import com.put.topstreamers.application.StreamerService
-import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
