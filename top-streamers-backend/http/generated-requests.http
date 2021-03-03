@@ -1,3 +1,38 @@
+DELETE http://localhost:8080/streamers/603fffd828af1c1d11daca18
+Accept: application/json
+
+###
+PUT http://localhost:8080/streamers/603ff88fb4f56d5f665eda3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "channel" : "test",
+  "watchTime" : 3,
+  "mature": false
+
+}
+
+###
+POST http://localhost:8080/streamers
+Content-Type: application/json
+Accept: application/json
+
+{
+  "channel" : "test-channel",
+  "watchTime" : 1,
+  "streamTime" : 1,
+  "peakViewers" : 1,
+  "avgViewers" : 1,
+  "followers" : 1,
+  "followersGained" : 1,
+  "viewsGained" : 1,
+  "partnered" : false,
+  "mature" : true,
+  "language" : "PL"
+}
+
+###
 GET http://localhost:8080/streamers?channel=Remx
 Accept: application/json
 
