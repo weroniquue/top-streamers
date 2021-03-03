@@ -1,0 +1,4 @@
+###
+GET http://localhost:8080/streamers
+
+<> 2021-03-03T100521.200.json

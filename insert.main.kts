@@ -1,37 +1,57 @@
-import com.mongodb.BasicDBObject
+@file:Repository("https://jcenter.bintray.com")
+@file:DependsOn("org.mongodb:mongo-java-driver:3.12.8")
+
 import com.mongodb.MongoException
 import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoCollection
 import org.bson.Document
 import java.io.File
+import kotlin.system.exitProcess
 
-val dbStringConnection = args[0]
-val fileName = args[1]
-
+var dbStringConnection: String? = null
+var fileName: String? = null
 var mongoClient: MongoClient? = null
 var currentLine = 0
 var collection:MongoCollection<Document>? = null
 
-createConnection()
-println("Read csv file $fileName")
-
-File(fileName).forEachLine {
-    if (currentLine != 0 ) {
-        val document = convertToModel(it)
-        document?.let { saveEntity(it) }
+try {
+    if (args.size < 2) {
+        println("Arguments are required: mongo connection string and data file path")
+        exitProcess(0)
     }
-    currentLine++
+    dbStringConnection = args[0]
+    fileName = args[1]
+    createConnection()
+    println("Read csv file $fileName")
+    processFile()
+    println("Finish")
+    println("Inserted ${collection!!.find().count()}")
+    mongoClient!!.close()
+} catch (ex: Exception) {
+    println("Error")
 }
-println("Finish")
-println("Inserted ${collection!!.find().count()}")
-mongoClient!!.close()
 
+fun processFile() {
+
+    try {
+        File(fileName).forEachLine {
+            if (currentLine != 0 ) {
+                val document = convertToModel(it)
+                document?.let { saveEntity(it) }
+            }
+            currentLine++
+        }
+    } catch (ex: NullPointerException) {
+        println("Enter full path of csv file")
+    }
+}
 
 fun createConnection() {
     try {
-        mongoClient = MongoClients.create(dbStringConnection)
+        mongoClient = MongoClients.create(dbStringConnection!!)
         collection = mongoClient!!.getDatabase("top-streamers").getCollection("streamers")
+        collection!!.drop()
         println("Connected to MongoDB!")
     } catch (e: MongoException) {
         e.printStackTrace()
