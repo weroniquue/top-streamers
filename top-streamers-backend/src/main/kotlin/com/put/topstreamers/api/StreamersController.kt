@@ -24,6 +24,9 @@ class StreamersController(
     @DeleteMapping("{id}")
     fun delete(@PathVariable id: String) = streamerService.delete(id)
 
+    @GetMapping("/avg-viewers")
+    fun avgViewers() = streamerService.meanViewers()
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(DataNotFound::class)
     fun handleException() {}

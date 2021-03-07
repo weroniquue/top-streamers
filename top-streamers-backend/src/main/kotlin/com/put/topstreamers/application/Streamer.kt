@@ -14,3 +14,9 @@ data class Streamer(
     val mature: Boolean?,
     val language: String?
 )
+
+data class MeanWatchers(
+    val mean: Number,
+    val meanMature: Number,
+    val meanNotMature: Number
+)

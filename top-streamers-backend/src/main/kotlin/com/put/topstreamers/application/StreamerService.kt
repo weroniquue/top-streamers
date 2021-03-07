@@ -38,6 +38,18 @@ class StreamerService(
             throw DataNotFound(id)
         }
     }
+
+    fun meanViewers(): MeanWatchers {
+        val allStreamers = streamersDatabase.getAllStreamers()
+        val meanViewers = streamersDatabase.getAllStreamers().map { it.avgViewers!!.toDouble() }.average()
+        val meanViewersGrouped: Map<Boolean?, Double> = allStreamers.groupBy { it.mature }
+            .mapValues { it.value.map { streamer -> streamer.avgViewers!!.toDouble() }.average() }
+        return MeanWatchers(
+            mean = meanViewers,
+            meanMature = meanViewersGrouped[true] ?: 0,
+            meanNotMature = meanViewersGrouped[false] ?: 0
+        )
+    }
 }
 
 class DataNotFound(id: String) : RuntimeException("Stream with $id not found")
