@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("streamers")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 class StreamersController(
     private val streamerService: StreamerService
 ) {
