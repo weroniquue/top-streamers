@@ -25,22 +25,29 @@ export interface Streamer {
 export class AppComponent implements OnInit {
 
   state: {
-    streamers: Streamer[]
+    allStreamers: Streamer[],
+    displayedStreamers: Streamer[]
   };
 
   constructor(private http: HttpClient) {
-    this.state = { streamers: null };
+    this.state = { allStreamers: null, displayedStreamers: null };
   }
 
   ngOnInit(): void {
     this.getStreamerList().subscribe(streamers => {
-      console.log(streamers);
-      this.state.streamers = streamers.slice(0, 101);
+      this.state.allStreamers = streamers;
+      this.state.displayedStreamers = this.state.allStreamers.slice(0, 50);
     });
   }
 
   private getStreamerList(): Observable<Streamer[]> {
     return this.http.get<Streamer[]>('http://localhost:8080/streamers');
+  }
+
+  onShowMore(): void {
+    const currentLength = this.state.displayedStreamers.length;
+    this.state.displayedStreamers = this.state.displayedStreamers
+      .concat(this.state.allStreamers.slice(currentLength, currentLength + 50));
   }
 
 

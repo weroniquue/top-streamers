@@ -14,8 +14,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let streamer of state.streamers; let index = index">
-    <th scope="row">{{ index }}</th>
+  <tr *ngFor="let streamer of state.displayedStreamers; let index = index">
+    <th scope="row">{{ index + 1 }}</th>
     <td>{{ streamer.channel }}</td>
     <td>{{ streamer.avgViewers }}</td>
     <td>{{ streamer.language }}</td>
@@ -30,3 +30,5 @@
   </tr>
   </tbody>
 </table>
+
+<button *ngIf="state.displayedStreamers?.length" (click)="onShowMore()">Show more</button>
