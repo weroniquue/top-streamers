@@ -72,6 +72,10 @@ export class StreamerListComponent implements OnInit {
     this.router.navigate([`/edit`]);
   }
 
+  onStatistics(): void {
+    this.router.navigate([`/stats`]);
+  }
+
   onEdit(streamer: Streamer): void {
     this.router.navigate([`/edit/${streamer.id}`]);
   }

@@ -7,12 +7,14 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { StreamerEditComponent } from './streamer-edit/streamer-edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { StreamerListComponent } from './streamer-list/streamer-list.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StreamerEditComponent,
-    StreamerListComponent
+    StreamerListComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
