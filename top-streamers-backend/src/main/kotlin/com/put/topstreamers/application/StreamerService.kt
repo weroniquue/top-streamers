@@ -43,7 +43,7 @@ class StreamerService(
 
     fun meanViewers(): MeanWatchers {
         val allStreamers = streamersDatabase.getAllStreamers()
-        val meanViewers = streamersDatabase.getAllStreamers().map { it.avgViewers!!.toDouble() }.average()
+        val meanViewers = allStreamers.map { it.avgViewers!!.toDouble() }.average()
         val meanViewersGrouped: Map<Boolean?, Double> = allStreamers.groupBy { it.mature }
             .mapValues { it.value.map { streamer -> streamer.avgViewers!!.toDouble() }.average() }
         return MeanWatchers(
@@ -51,6 +51,12 @@ class StreamerService(
             meanMature = meanViewersGrouped[true] ?: 0,
             meanNotMature = meanViewersGrouped[false] ?: 0
         )
+    }
+
+    fun avgViewersByLanguage(): Map<String?, Double> {
+        val allStreamers = streamersDatabase.getAllStreamers()
+        return allStreamers.groupBy { it.language }
+            .mapValues { it.value.map { streamer -> streamer.avgViewers!!.toDouble() }.average() }
     }
 }
 

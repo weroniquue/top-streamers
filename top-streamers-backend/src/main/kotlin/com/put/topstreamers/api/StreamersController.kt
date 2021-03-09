@@ -31,6 +31,9 @@ class StreamersController(
     @GetMapping("/avg-viewers")
     fun avgViewers() = streamerService.meanViewers()
 
+    @GetMapping("/avg-viewers-language")
+    fun avgViewersByLanguage() = streamerService.avgViewersByLanguage()
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(DataNotFound::class)
     fun handleException() {}

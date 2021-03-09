@@ -1,3 +1,7 @@
+GET http://localhost:8080/streamers/avg-viewers-language
+Accept: application/json
+
+###
 GET http://localhost:8080/streamers/603fb014f7b5b73f09513117
 Accept: application/json
 
