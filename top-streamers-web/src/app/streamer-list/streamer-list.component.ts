@@ -27,7 +27,8 @@ export class StreamerListComponent implements OnInit {
 
   state: {
     allStreamers: Streamer[],
-    displayedStreamers: Streamer[]
+    displayedStreamers: Streamer[],
+    isLoadingData: boolean
   };
 
   channelName: FormControl;
@@ -45,7 +46,8 @@ export class StreamerListComponent implements OnInit {
   private clearData(): void {
     this.state = {
       allStreamers: null,
-      displayedStreamers: null
+      displayedStreamers: null,
+      isLoadingData: true
     };
   }
 
@@ -54,6 +56,7 @@ export class StreamerListComponent implements OnInit {
     this.streamersService.getStreamerList(channelName).subscribe(streamers => {
       this.state.allStreamers = streamers;
       this.state.displayedStreamers = this.state.allStreamers.slice(0, 50);
+      this.state.isLoadingData = false;
     });
   }
 

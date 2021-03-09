@@ -7,9 +7,10 @@
     <button (click)="onStatistics()" class="btn btn-primary mx-1">Statistics</button>
   </div>
 
-  <p *ngIf="!state.allStreamers?.length">Loading data...</p>
+  <p *ngIf="state.isLoadingData">Loading data...</p>
+  <p *ngIf="!state.isLoadingData && state.allStreamers?.length === 0">No such streamer found.</p>
 
-  <table *ngIf="state.allStreamers?.length" class="table">
+  <table *ngIf="!state.isLoadingData && state.allStreamers?.length > 0" class="table">
     <thead>
     <tr>
       <th scope="col">#</th>
