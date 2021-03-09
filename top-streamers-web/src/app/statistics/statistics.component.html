@@ -1,1 +1,20 @@
-<p>statistics works!</p>
+<div class="container">
+  <p *ngIf="state.isLoadingData">Loading data...</p>
+
+  <ng-container *ngIf="!state.isLoadingData">
+    <button (click)="onGoBack()" type="button" class="btn btn-secondary my-4">Go back</button>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Language</th>
+        <th scope="col">Avg. viewers</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let entry of state.statistics"> <!-- ngfor -->
+        <th scope="row">{{ entry.language }}</th>
+        <th scope="row">{{ entry.avgViewers }}</th>
+      </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>
