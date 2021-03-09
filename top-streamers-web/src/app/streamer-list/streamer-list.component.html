@@ -1,9 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid my-2">
   <div class="form-group">
     <label for="channelName">Channel Name</label>
-    <input [formControl]="channelName" type="text" class="form-control" id="channelName" placeholder="Channel Name">
-    <button (click)="onReloadData()" class="btn btn-primary">Reload data</button>
-    <button (click)="onAddStreamer()" class="btn btn-primary">Add new streamer</button>
+    <input [formControl]="channelName" type="text" class="form-control mb-3" id="channelName" placeholder="Channel Name">
+    <button (click)="onReloadData()" class="btn btn-primary mx-1">Reload data</button>
+    <button (click)="onAddStreamer()" class="btn btn-primary mx-1">Add new streamer</button>
+    <button (click)="onStatistics()" class="btn btn-primary mx-1">Statistics</button>
   </div>
 
   <p *ngIf="!state.allStreamers?.length">Loading data...</p>

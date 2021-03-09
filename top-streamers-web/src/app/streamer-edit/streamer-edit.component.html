@@ -1,6 +1,6 @@
 <p *ngIf="this.state.isNewStreamer === null">Loading data...</p>
 
-<div *ngIf="this.state.isNewStreamer !== null" class="container">
+<div *ngIf="this.state.isNewStreamer !== null" class="container my-4">
   <form [formGroup]="streamerForm" novalidate>
     <div class="form-group">
       <label for="channelName">Channel name</label>
@@ -34,11 +34,11 @@
       <label for="viewsGained">Views gained</label>
       <input [formControlName]="'viewsGained'" type="number" class="form-control" id="viewsGained">
     </div>
-    <div class="form-check">
+    <div class="form-check my-2">
       <input [formControlName]="'partnered'" type="checkbox" class="form-check-input" id="partnered">
       <label class="form-check-label" for="partnered">Partnered</label>
     </div>
-    <div class="form-check">
+    <div class="form-check my-2">
       <input [formControlName]="'mature'" type="checkbox" class="form-check-input" id="mature">
       <label class="form-check-label" for="mature">Mature</label>
     </div>
@@ -46,7 +46,7 @@
       <label for="language">Language</label>
       <input [formControlName]="'language'" type="text" class="form-control" id="language">
     </div>
-    <button (click)="onBack()" type="button" class="btn btn-secondary">Go back</button>
-    <button (click)="onSubmit()" type="button" class="btn btn-primary">Submit</button>
+    <button (click)="onBack()" type="button" class="btn btn-secondary mx-1">Go back</button>
+    <button (click)="onSubmit()" type="button" class="btn btn-primary mx-1">Submit</button>
   </form>
 </div>
