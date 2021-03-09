@@ -16,6 +16,9 @@ class StreamersController(
     @GetMapping
     fun getAllStreamers(@RequestParam channel: String?) = streamerService.getAllStreamers(channel)
 
+    @GetMapping("{id}")
+    fun get(@PathVariable id: String) = streamerService.get(id)
+
     @PostMapping
     fun addNewStreamer(@RequestBody request: NewStreamerRequest) = streamerService.save(request.toDomain())
 
@@ -35,13 +38,13 @@ class StreamersController(
 
 data class NewStreamerRequest(
     val channel: String,
-    val watchTime: Int,
-    val streamTime: Int,
-    val peakViewers: Int,
-    val avgViewers: Int,
-    val followers: Int,
-    val followersGained: Int,
-    val viewsGained: Int,
+    val watchTime: Long,
+    val streamTime: Long,
+    val peakViewers: Long,
+    val avgViewers: Long,
+    val followers: Long,
+    val followersGained: Long,
+    val viewsGained: Long,
     val partnered: Boolean,
     val mature: Boolean,
     val language: String

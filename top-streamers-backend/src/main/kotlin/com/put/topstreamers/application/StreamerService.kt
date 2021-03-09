@@ -8,6 +8,8 @@ class StreamerService(
     private val streamersDatabase: StreamersDatabase
 ) {
 
+    fun get(id: String): Streamer = streamersDatabase.get(id) ?: throw DataNotFound(id)
+
     fun getAllStreamers(channel: String?): List<Streamer> = channel?.let {
         streamersDatabase.getStreamersByChannelName(channel)
     } ?: streamersDatabase.getAllStreamers()
