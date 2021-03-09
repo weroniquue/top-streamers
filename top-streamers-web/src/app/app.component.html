@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="form-group">
+    <label for="channelName">Channel Name</label>
+    <input [formControl]="channelName" type="text" class="form-control" id="channelName" placeholder="Channel Name">
+    <button (click)="onReloadData()" class="btn btn-primary">Reload data</button>
+  </div>
+
+  <p *ngIf="!state.allStreamers?.length">Loading data...</p>
+
+  <table *ngIf="state.allStreamers?.length" class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Channel</th>
+      <th scope="col">Avg. viewers</th>
+      <th scope="col">Language</th>
+      <th scope="col">Watch Time [h]</th>
+      <th scope="col">Stream Time [h]</th>
+      <th scope="col">Peak Viewers</th>
+      <th scope="col">Avg. Viewers</th>
+      <th scope="col">Followers</th>
+      <th scope="col">Partnered</th>
+      <th scope="col">Mature</th>
+      <th scope="col">Language</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let streamer of state.displayedStreamers; let index = index">
+      <th scope="row">{{ index + 1 }}</th>
+      <td>{{ streamer.channel }}</td>
+      <td>{{ streamer.avgViewers }}</td>
+      <td>{{ streamer.language }}</td>
+      <td>{{ streamer.watchTime }}</td>
+      <td>{{ streamer.streamTime }}</td>
+      <td>{{ streamer.peakViewers }}</td>
+      <td>{{ streamer.avgViewers }}</td>
+      <td>{{ streamer.followers }}</td>
+      <td>{{ streamer.partnered ? 'Yes' : 'No' }}</td>
+      <td>{{ streamer.mature ? 'Yes' : 'No' }}</td>
+      <td>{{ streamer.language }}</td>
+      <td><a (click)="onEdit(streamer)" href="javascript:void(0);">Edit</a></td>
+      <td><a (click)="onDelete(streamer.id)" href="javascript:void(0);">Delete</a></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button type="button" class="btn btn-dark"
+          *ngIf="state.displayedStreamers?.length && state.allStreamers?.length > state.displayedStreamers?.length"
+          (click)="onShowMore()">
+    Show more
+  </button>
+</div>
