@@ -12,16 +12,16 @@ export class StatisticsComponent implements OnInit {
   state: {
     isLoadingData: boolean;
     statistics: any[];
+    otherStatistics: any[];
   };
 
   constructor(private streamersService: StreamersService,
               private router: Router) {
-    this.state = { isLoadingData: true, statistics: null};
+    this.state = { isLoadingData: true, statistics: null, otherStatistics: null};
   }
 
   ngOnInit(): void {
-    this.streamersService.getStatistics().subscribe(result => {
-      console.log(result);
+    this.streamersService.getLanguageStatistics().subscribe(result => {
       this.state.statistics = Object.keys(result)
         .map(lang => ({ language: lang, avgViewers: result[lang]}))
         .sort((a, b) => {
@@ -31,12 +31,21 @@ export class StatisticsComponent implements OnInit {
             ? -1
             : 0;
         });
-      this.state.isLoadingData = false;
+      this.streamersService.getViewershipStatistics().subscribe(otherResult => {
+        this.state.otherStatistics = Object.keys(otherResult)
+          .map(key => ({ stat: key, value: otherResult[key]}));
+        this.state.isLoadingData = false;
+      });
     });
   }
 
   onGoBack(): void {
     this.router.navigate(['/']);
+  }
+
+  // returns displayed otherStatistic name
+  getName(statName: string): string {
+    return statName === 'mean' ? 'Mean' : statName === 'meanMature' ? 'Mean mature' : 'Mean not mature';
   }
 
 }

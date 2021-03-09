@@ -3,7 +3,7 @@
 
   <ng-container *ngIf="!state.isLoadingData">
     <button (click)="onGoBack()" type="button" class="btn btn-secondary my-4">Go back</button>
-    <table class="table">
+    <table class="table mb-4">
       <thead>
       <tr>
         <th scope="col">Language</th>
@@ -13,6 +13,20 @@
       <tr *ngFor="let entry of state.statistics"> <!-- ngfor -->
         <th scope="row">{{ entry.language }}</th>
         <th scope="row">{{ entry.avgViewers }}</th>
+      </tr>
+      </tbody>
+    </table>
+
+    <table class="table mb-4">
+      <thead>
+      <tr>
+        <th scope="col">Stat</th>
+        <th scope="col">Value</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let entry of state.otherStatistics"> <!-- ngfor -->
+        <th scope="row">{{ getName(entry.stat) }}</th>
+        <th scope="row">{{ entry.value }}</th>
       </tr>
       </tbody>
     </table>

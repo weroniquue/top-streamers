@@ -32,8 +32,12 @@ export class StreamersService {
     return this.http.post(`http://localhost:8080/streamers`, data);
   }
 
-  getStatistics(): Observable<any> {
+  getLanguageStatistics(): Observable<any> {
     return this.http.get<Streamer>('http://localhost:8080/streamers/avg-viewers-language');
+  }
+
+  getViewershipStatistics(): Observable<any> {
+    return this.http.get<Streamer>('http://localhost:8080/streamers/avg-viewers');
   }
 
 }
