@@ -66,4 +66,14 @@ export class AppComponent implements OnInit {
     this.loadData(channelName ? channelName : undefined);
   }
 
+  onEdit(streamer: Streamer): void {
+    // TODO go to edit component
+  }
+
+  onDelete(streamerId: string): void {
+    this.streamersService.deleteStreamer(streamerId).subscribe(_ => {
+      this.loadData();
+    });
+  }
+
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="form-group">
     <label for="channelName">Channel Name</label>
     <input [formControl]="channelName" type="text" class="form-control" id="channelName" placeholder="Channel Name">
@@ -38,6 +38,8 @@
       <td>{{ streamer.partnered ? 'Yes' : 'No' }}</td>
       <td>{{ streamer.mature ? 'Yes' : 'No' }}</td>
       <td>{{ streamer.language }}</td>
+      <td><a (click)="onEdit(streamer)" href="javascript:void(0);">Edit</a></td>
+      <td><a (click)="onDelete(streamer.id)" href="javascript:void(0);">Delete</a></td>
     </tr>
     </tbody>
   </table>
