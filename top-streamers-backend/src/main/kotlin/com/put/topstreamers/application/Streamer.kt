@@ -16,7 +16,7 @@ data class Streamer(
 )
 
 data class MeanWatchers(
-    val mean: Number,
-    val meanMature: Number,
-    val meanNotMature: Number
+    val mean: String,
+    val meanMature: String,
+    val meanNotMature: String
 )

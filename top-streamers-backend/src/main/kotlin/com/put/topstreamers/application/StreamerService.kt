@@ -43,21 +43,25 @@ class StreamerService(
 
     fun meanViewers(): MeanWatchers {
         val allStreamers = streamersDatabase.getAllStreamers()
-        val meanViewers = allStreamers.map { it.avgViewers!!.toDouble() }.average()
-        val meanViewersGrouped: Map<Boolean?, Double> = allStreamers.groupBy { it.mature }
-            .mapValues { it.value.map { streamer -> streamer.avgViewers!!.toDouble() }.average() }
+        val meanViewers = allStreamers.map { it.avgViewers!!.toDouble() }.average().roundTo(2)
+        val meanViewersGrouped: Map<Boolean?, String> = allStreamers.groupBy { it.mature }
+            .mapValues { it.value.map { streamer -> streamer.avgViewers!!.toDouble() }.average().roundTo(2) }
         return MeanWatchers(
             mean = meanViewers,
-            meanMature = meanViewersGrouped[true] ?: 0,
-            meanNotMature = meanViewersGrouped[false] ?: 0
+            meanMature = meanViewersGrouped[true] ?: "0",
+            meanNotMature = meanViewersGrouped[false] ?: "0"
         )
     }
 
-    fun avgViewersByLanguage(): Map<String?, Double> {
+    fun avgViewersByLanguage(): Map<String?, String> {
         val allStreamers = streamersDatabase.getAllStreamers()
         return allStreamers.groupBy { it.language }
-            .mapValues { it.value.map { streamer -> streamer.avgViewers!!.toDouble() }.average() }
+            .mapValues { it.value.map { streamer -> streamer.avgViewers!!.toDouble() }.average().roundTo(2) }
     }
+}
+
+fun Double.roundTo(n : Int) : String {
+    return "%.${n}f".format(this)
 }
 
 class DataNotFound(id: String) : RuntimeException("Stream with $id not found")
