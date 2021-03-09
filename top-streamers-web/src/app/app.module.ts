@@ -4,15 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
+import { StreamerEditComponent } from './streamer-edit/streamer-edit.component';
+import { AppRoutingModule } from './app-routing.module';
+import { StreamerListComponent } from './streamer-list/streamer-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StreamerEditComponent,
+    StreamerListComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

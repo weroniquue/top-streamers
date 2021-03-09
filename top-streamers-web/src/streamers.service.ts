@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Streamer} from './app/app.component';
 import {HttpClient} from '@angular/common/http';
+import {Streamer} from './app/streamer-list/streamer-list.component';
+import {StreamerEditDTO} from './app/streamer-edit/streamer-edit.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,24 @@ export class StreamersService {
     return this.http.get<Streamer[]>(`http://localhost:8080/streamers${channelString}`);
   }
 
+  getStreamerById(id: string): Observable<Streamer> {
+    return this.http.get<Streamer>(`http://localhost:8080/streamers/${id}`);
+  }
+
   deleteStreamer(id: string): Observable<any> {
     return this.http.delete(`http://localhost:8080/streamers/${id}`);
   }
+
+  updateStreamer(data: StreamerEditDTO, id: string): Observable<any> {
+    return this.http.put(`http://localhost:8080/streamers/${id}`, data);
+  }
+
+  addStreamer(data: StreamerEditDTO): Observable<any> {
+    return this.http.post(`http://localhost:8080/streamers`, data);
+  }
+
+  getStatistics(): Observable<any> {
+    return this.http.get<Streamer>('http://localhost:8080/streamers/avg-viewers');
+  }
+
 }

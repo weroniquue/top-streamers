@@ -1,0 +1,52 @@
+<p *ngIf="this.state.isNewStreamer === null">Loading data...</p>
+
+<div *ngIf="this.state.isNewStreamer !== null" class="container">
+  <form [formGroup]="streamerForm" novalidate>
+    <div class="form-group">
+      <label for="channelName">Channel name</label>
+      <input [formControlName]="'channel'" type="text" class="form-control" id="channelName">
+    </div>
+    <div class="form-group">
+      <label for="watchTime">Watch time</label>
+      <input [formControlName]="'watchTime'" type="number" class="form-control" id="watchTime">
+    </div>
+    <div class="form-group">
+      <label for="streamTime">Stream time</label>
+      <input [formControlName]="'streamTime'" type="number" class="form-control" id="streamTime">
+    </div>
+    <div class="form-group">
+      <label for="peakViewers">Peak viewers</label>
+      <input [formControlName]="'peakViewers'" type="number" class="form-control" id="peakViewers">
+    </div>
+    <div class="form-group">
+      <label for="avgViewers">Average viewers</label>
+      <input [formControlName]="'avgViewers'" type="number" class="form-control" id="avgViewers">
+    </div>
+    <div class="form-group">
+      <label for="followers">Followers</label>
+      <input [formControlName]="'followers'" type="number" class="form-control" id="followers">
+    </div>
+    <div class="form-group">
+      <label for="followersGained">Followers gained</label>
+      <input [formControlName]="'followersGained'" type="number" class="form-control" id="followersGained">
+    </div>
+    <div class="form-group">
+      <label for="viewsGained">Views gained</label>
+      <input [formControlName]="'viewsGained'" type="number" class="form-control" id="viewsGained">
+    </div>
+    <div class="form-check">
+      <input [formControlName]="'partnered'" type="checkbox" class="form-check-input" id="partnered">
+      <label class="form-check-label" for="partnered">Partnered</label>
+    </div>
+    <div class="form-check">
+      <input [formControlName]="'mature'" type="checkbox" class="form-check-input" id="mature">
+      <label class="form-check-label" for="mature">Mature</label>
+    </div>
+    <div class="form-group">
+      <label for="language">Language</label>
+      <input [formControlName]="'language'" type="text" class="form-control" id="language">
+    </div>
+    <button (click)="onBack()" type="button" class="btn btn-secondary">Go back</button>
+    <button (click)="onSubmit()" type="button" class="btn btn-primary">Submit</button>
+  </form>
+</div>
