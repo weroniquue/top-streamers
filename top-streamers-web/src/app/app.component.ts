@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {FormControl} from '@angular/forms';
+import {StreamersService} from '../streamers.service';
 
 export interface Streamer {
   id?: string;
@@ -29,19 +29,30 @@ export class AppComponent implements OnInit {
     displayedStreamers: Streamer[]
   };
 
-  constructor(private http: HttpClient) {
-    this.state = { allStreamers: null, displayedStreamers: null };
+  channelName: FormControl;
+
+  constructor(private streamersService: StreamersService) {
+    this.clearData();
+    this.channelName = new FormControl(null, []);
   }
 
   ngOnInit(): void {
-    this.getStreamerList().subscribe(streamers => {
+    this.loadData();
+  }
+
+  private clearData(): void {
+    this.state = {
+      allStreamers: null,
+      displayedStreamers: null
+    };
+  }
+
+  private loadData(channelName?: string): void {
+    this.clearData();
+    this.streamersService.getStreamerList(channelName).subscribe(streamers => {
       this.state.allStreamers = streamers;
       this.state.displayedStreamers = this.state.allStreamers.slice(0, 50);
     });
-  }
-
-  private getStreamerList(): Observable<Streamer[]> {
-    return this.http.get<Streamer[]>('http://localhost:8080/streamers');
   }
 
   onShowMore(): void {
@@ -50,6 +61,9 @@ export class AppComponent implements OnInit {
       .concat(this.state.allStreamers.slice(currentLength, currentLength + 50));
   }
 
-
+  onReloadData(): void {
+    const channelName = this.channelName.value;
+    this.loadData(channelName ? channelName : undefined);
+  }
 
 }
