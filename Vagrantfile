@@ -67,21 +67,20 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-
-  #config.vm.provision :shell, :path => "provision.sh"
   
-
   # config.vm.define "web" do |web|
     #web.vm.box = "apache"
     # web.vm.provision "apache", type: "ansible", playbook: "playbook.yml"
     # web.vm.network :forwarded_port, :guest => 80, :host => 8081, :host_ip => "127.0.0.1"
   # end
 
-  # config.vm.define "backend" do |backend|
-  # end
-  
   config.vm.define "db" do |db|
     db.vm.box = "bento/ubuntu-18.04"
     db.vm.provision "ansible", type: "ansible", playbook: "db-playbook.yml"
+  end
+
+  config.vm.define "backend" do |backend|
+    backend.vm.box = "bento/ubuntu-18.04"
+    backend.vm.provision "ansible", type: "ansible", playbook: "backend-playbook.yml"
   end
 end

@@ -1,0 +1,42 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Java 11 - add repository
+      apt_repository:
+        repo: "ppa:openjdk-r/ppa"
+        state: present
+        update_cache: yes
+
+    - name: Install java 11
+      apt:
+        name: openjdk-11-jdk
+        state: present
+        update_cache: yes
+
+    - name: Build jar
+      command: gradlew clean build #add change gradlew to ./gradlew if you don't run script on windows
+      args:
+        chdir: top-streamers-backend
+
+    - name: create directory
+      file:
+        path: /etc/top-streamers-backend
+        recurse: yes
+        state: directory
+
+    - name: copy jar
+      copy:
+        src: ./top-streamers-backend/build/libs/top-streamers-0.0.1.jar
+        dest: /etc/top-streamers-backend/top-streamers-0.0.1.jar
+        mode: "0644"
+
+    # - name: copy database configuration
+    #   copy:
+    #     scr:
+    #     dest: /etc/top-streamers-backend/application.properties
+    #     mode: "0644"
+
+    # - name: Run jar
+    #   command: nohup java -jar top-streamers-0.0.1.jar --spring.config.location=file:///etc/top-streamers-backend/application.properties &
