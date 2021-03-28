@@ -1,0 +1,63 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: MongoDB - Import public key
+      apt_key:
+        keyserver: hkp://keyserver.ubuntu.com:80
+        id: E52529D4
+
+    - name: MongoDB - Add repository
+      apt_repository:
+        filename: "/etc/apt/sources.list.d/mongodb-org-4.0.list"
+        repo: "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/4.0 multiverse"
+        state: present
+        update_cache: yes
+
+    - name: MongoDB - Install MongoDB
+      apt:
+        name: mongodb
+        state: present
+        update_cache: yes
+
+    - name: MongoDB - Running state
+      service:
+        name: mongodb
+        state: started
+
+    - name: Java 11 - add repository
+      apt_repository:
+        repo: "ppa:openjdk-r/ppa"
+        state: present
+        update_cache: yes
+
+    - name: Install java 11
+      apt:
+        name: openjdk-11-jdk
+        state: present
+        update_cache: yes
+
+    - name: Install kotlin
+      command: snap install --classic kotlin
+
+    - name: create directory
+      file:
+        path: /etc/script
+        recurse: yes
+        state: directory
+
+    - name: copy script
+      copy:
+        src: insert.main.kts
+        dest: /etc/script/insert.main.kts
+        mode: "0644"
+
+    - name: copy csv with data
+      copy:
+        src: twitchdata.csv
+        dest: /etc/script/twitchdata.csv
+        mode: "0644"
+
+    - name: Instert data to db
+      command: kotlinc -script /etc/script/insert.main.kts mongodb://localhost:27017 /etc/script/twitchdata.csv
