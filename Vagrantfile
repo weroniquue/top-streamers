@@ -76,11 +76,13 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "db" do |db|
     db.vm.box = "bento/ubuntu-18.04"
+    db.vm.network :private_network, :ip => '192.168.20.21'
     db.vm.provision "ansible", type: "ansible", playbook: "db-playbook.yml"
   end
 
   config.vm.define "backend" do |backend|
     backend.vm.box = "bento/ubuntu-18.04"
+    backend.vm.network :private_network, :ip => '192.168.20.22'
     backend.vm.provision "ansible", type: "ansible", playbook: "backend-playbook.yml"
   end
 end
