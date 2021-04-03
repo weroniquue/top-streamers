@@ -21,10 +21,27 @@
         state: present
         update_cache: yes
 
+    - name: Replace mongodb config
+      copy:
+        src: mongodb.conf
+        dest: /etc/mongodb.conf
+        mode: "0644"
+    
+    - name: Open port
+      shell: iptables -I INPUT -p tcp -s 192.168.20.22 --dport 27017 -j ACCEPT
+
+    - name: Block routing
+      shell: iptables -P INPUT DROP
+
     - name: MongoDB - Running state
       service:
         name: mongodb
         state: started
+
+    - name: Reload mongo config
+      service:
+        name: mongodb
+        sate: reloaded
 
     - name: Java 11 - add repository
       apt_repository:
