@@ -5,6 +5,12 @@
   tasks:
     - name: Set hosts
       shell: sed -i -e '$ a 192.168.20.21 mongo-database' /etc/hosts
+    
+    - name: Open port
+      shell: iptables -I INPUT -p tcp -s 192.168.20.23 --dport 8080 -j ACCEPT
+
+    # - name: Block routing
+    #   shell: iptables -P INPUT DROP
 
     - name: Java 11 - add repository
       apt_repository:

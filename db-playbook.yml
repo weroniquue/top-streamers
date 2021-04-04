@@ -30,18 +30,10 @@
     - name: Open port
       shell: iptables -I INPUT -p tcp -s 192.168.20.22 --dport 27017 -j ACCEPT
 
-    - name: Block routing
-      shell: iptables -P INPUT DROP
-
     - name: MongoDB - Running state
       service:
         name: mongodb
         state: started
-
-    - name: Reload mongo config
-      service:
-        name: mongodb
-        sate: reloaded
 
     - name: Java 11 - add repository
       apt_repository:
@@ -78,3 +70,10 @@
 
     - name: Instert data to db
       command: kotlinc -script /etc/script/insert.main.kts mongodb://localhost:27017 /etc/script/twitchdata.csv
+
+    # - name: Reload mongo config
+    #   shell: systemctl 
+
+  # - name: Block routing
+  #   shell: iptables -P INPUT DROP
+

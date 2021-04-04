@@ -32,3 +32,18 @@ kotlinc -script insert.main.kts <mongo_connection_string> <absolute_path_to_twit
 mongo_connection_string - is a uri which enables connection to mongodb. If you use local 
 database type `mongodb://localhost:27017`. Change to proper port.
 3. Verify if data is saved in the database. 
+
+
+_______________________
+
+## Run by Vagrant:
+### Requirements
+* Vagrant
+* Ansible
+* Java11
+* node
+
+
+1. Run `./build.sh`
+2. Run `vagrant up`
+3. Open `localhost:3000`

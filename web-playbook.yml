@@ -3,9 +3,18 @@
   become: yes
 
   tasks:
-    - name: Install node.js
-      apt:
-        name: nodejs
-        state: present
-        update_cache: yes
+  - name: apache is installed
+    community.general.pacman:
+      name: apache
+      state: present
 
+  - name: httpd service is enabled
+    ansible.builtin.service:
+      name: httpd
+      state: started
+  
+  - name: copy index.html
+    copy:
+      src: ./top-streamers-web/dist/top-streamers-web/
+      dest: /srv/http/
+      mode: "0644"

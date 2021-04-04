@@ -68,12 +68,6 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   
-  # config.vm.define "web" do |web|
-    #web.vm.box = "apache"
-    # web.vm.provision "apache", type: "ansible", playbook: "playbook.yml"
-    # web.vm.network :forwarded_port, :guest => 80, :host => 8081, :host_ip => "127.0.0.1"
-  # end
-
   config.vm.define "db" do |db|
     db.vm.box = "bento/ubuntu-18.04"
     db.vm.network :private_network, :ip => '192.168.20.21'
@@ -84,5 +78,11 @@ Vagrant.configure("2") do |config|
     backend.vm.box = "bento/ubuntu-18.04"
     backend.vm.network :private_network, :ip => '192.168.20.22'
     backend.vm.provision "ansible", type: "ansible", playbook: "backend-playbook.yml"
+  end
+
+  config.vm.define "web" do |web|
+    web.vm.network :private_network, :ip => '192.168.20.23'
+    web.vm.provision "apache", type: "ansible", playbook: "web-playbook.yml"
+    web.vm.network :forwarded_port, :guest => 80, :host => 3000, :host_ip => "127.0.0.1"
   end
 end
