@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  service-angular:
+    build: top-streamers-web
+    ports:
+      - 4200:80
+  service-spring:
+    build: top-streamers-backend
+    ports:
+      - 8080:8080
+  service-mongo:
+    image: mongo:latest
+    ports:
+      - 37017:27017
+    expose:
+      - 27017
