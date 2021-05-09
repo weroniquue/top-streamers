@@ -50,6 +50,7 @@ _______________________
 
 
 ## Run with Docker:
+1. Run `./build.sh`
 1. Run `docker compose up --build`
 2. Run the mongoDB script with `mongodb://localhost:37017` as connection string
 3. Open `localhost:4200`
