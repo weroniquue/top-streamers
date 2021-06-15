@@ -1,0 +1,10 @@
+apiVersion: kind.x-k8s.io/v1alpha4
+kind: Cluster
+nodes:
+  - extraPortMappings:
+    - containerPort: 30000
+      hostPort: 4200
+    - containerPort: 30001
+      hostPort: 8080
+    - containerPort: 30002
+      hostPort: 37017

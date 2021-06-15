@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-deployment
+  name: backend-deployment
   labels:
-    app: node-deployment
+    app: backend-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: node-pod
+      app: backend-pod
   template:
     metadata:
-      name: node-pod
+      name: backend-pod
       labels:
-        app: node-pod
+        app: backend-pod
     spec:
       containers:
-        - name: blog-node-container
+        - name: top-streamers-backend-container
           image: backend
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+              hostPort: 8080

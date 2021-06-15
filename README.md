@@ -54,3 +54,25 @@ _______________________
 1. Run `docker compose up --build`
 2. Run the mongoDB script with `mongodb://localhost:37017` as connection string
 3. Open `localhost:4200`
+
+
+## k8s
+kind create cluster --config=kind-cluster.yaml
+1. Mongo:
+    docker pull mongo
+    kind load docker-image mongo
+    kubectl apply -f mongo-deployment.yaml
+    kubectl apply -f mongo-service.yaml
+
+2. Backend
+    gradlew clean build
+    docker build -t backend .
+    kind load docker-image backend
+    kubectl apply -f backend-deployment.yaml
+    kubectl apply -f backend-service.yaml
+3. Front
+    ng build
+    docker build -t frontendvm .
+    kind load docker-image frontendvm
+    kubectl apply -f nginx-deployment.yaml
+    kubectl apply -f nginx-service.yaml
