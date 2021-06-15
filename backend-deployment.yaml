@@ -22,3 +22,11 @@ spec:
           ports:
             - containerPort: 8080
               hostPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /streamers
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            failureThreshold: 3
